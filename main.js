@@ -26,7 +26,7 @@ function fadeOutEffect() {
         }
     }, 200);
 }
-document.querySelector(".close").addEventListener('click', fadeOutEffect);
+document.querySelector(".close-banner").addEventListener('click', fadeOutEffect);
 function IsJsonString(str) {
     try {
         JSON.parse(str);
