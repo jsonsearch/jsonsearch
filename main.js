@@ -29,7 +29,7 @@ function fadeOutEffect() {
 document.querySelector(".close").addEventListener('click', fadeOutEffect);
 $(document).ready(function(){
     if (urlparam == null || urlparam == "" || urlparam == false) {
-        $(".announcement-banner").show();
+        $(".announcement-banner").css("display", "flex");
     } else {
         $.ajax({
             url: urlparam,
