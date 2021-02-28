@@ -14,7 +14,7 @@ var urlraw = new URL(window.location.href);
 var urlparam = urlraw.searchParams.get("url");
 var datatype = urlraw.searchParams.get("type");
 function fadeOutEffect() {
-    var fadeTarget = document.querySelector(".announcement-banner");
+    var fadeTarget = document.querySelector(".error-banner");
     var fadeEffect = setInterval(function () {
         if (!fadeTarget.style.opacity) {
             fadeTarget.style.opacity = 1;
@@ -29,7 +29,7 @@ function fadeOutEffect() {
 document.querySelector(".close").addEventListener('click', fadeOutEffect);
 $(document).ready(function(){
     if (urlparam == null || urlparam == "" || urlparam == false) {
-        $(".announcement-banner").css("display", "flex");
+        $(".error-banner").css("display", "flex");
     } else {
         $.ajax({
             url: urlparam,
