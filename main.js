@@ -28,7 +28,7 @@ function fadeOutEffect() {
 }
 document.querySelector(".close").addEventListener('click', fadeOutEffect);
 $(document).ready(function(){
-    if (urlparam = null || urlparam == "" || urlparam === false) {
+    if (urlparam == null || urlparam == "" || urlparam == false) {
         $(".announcement-banner").show();
     } else {
         $.ajax({
