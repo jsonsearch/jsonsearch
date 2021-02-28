@@ -60,7 +60,7 @@ $(document).ready(function(){
         var output = '<div class="row">';
         var count = 1;
         $.each(data, function(key, val){
-            if (val.name.search(regex) != -1) {
+            if (val.title.search(regex) != -1) {
                 output += '<div class="col-md-6 well">';
                 output += '<div class="col-md-7">';
                 output += '<h5>' + val.title + '</h5>';
