@@ -28,24 +28,28 @@ function fadeOutEffect() {
 }
 document.querySelector(".close").addEventListener('click', fadeOutEffect);
 $(document).ready(function(){
-    $.ajax({
-        url: urlparam,
-        method: "GET",
-        success: function(item){
-            if (datatype === "raw") {
-                data = JSON.parse(`${item}`);
-            } else if (datatype === "json") {
-                data = `${item}`;
-            } else {
-                data = JSON.parse(`${item}`);
+    if (urlparam = null || urlparam == "") {
+        $(".announcement-banner").show();
+    } else {
+        $.ajax({
+            url: urlparam,
+            method: "GET",
+            success: function(item){
+                if (datatype === "raw") {
+                    data = JSON.parse(`${item}`);
+                } else if (datatype === "json") {
+                    data = `${item}`;
+                } else {
+                    data = JSON.parse(`${item}`);
+                }
+                $('#txt-search').removeAttr("readonly");
+                $('#txt-search').focus();
+            },
+            error: function(){
+                $(".announcement-banner").show();
             }
-            $('#txt-search').removeAttr("readonly");
-            $('#txt-search').focus();
-        },
-        error: function(){
-            $(".announcement-banner").show();
-        }
-    });
+        });
+    }
     $('#txt-search').keyup(function() {
         var searchField = $(this).val();
         if(searchField === '')  {
