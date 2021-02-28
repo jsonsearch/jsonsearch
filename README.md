@@ -15,6 +15,15 @@ Acceptable JSON format:
 }]
 ```
 
+The database source must allow to be [XMLHTTPREQUEST](https://en.wikipedia.org/wiki/XMLHttpRequest)ed by this domain
+
+You can allow our domain using Access-Control-Allow-Origin
+
+Example:
+```
+Access-Control-Allow-Origin: https://jsonsearch.github.io
+```
+
 ## Contributing
 1.  Fork it (https://github.com/jsonsearch/jsonsearch/fork)
 2.  Create your feature branch (git checkout -b my-new-feature)
