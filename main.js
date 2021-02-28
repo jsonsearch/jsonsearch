@@ -11,8 +11,8 @@
 var data = "";
 document.querySelector("form").onsubmit = function(e){e.preventDefault();}
 var urlraw = new URL(window.location.href);
-var urlparam = newurlraw.searchParams.get("url");
-var datatype = newurlraw.searchParams.get("type");
+var urlparam = urlraw.searchParams.get("url");
+var datatype = urlraw.searchParams.get("type");
 function fadeOutEffect() {
     var fadeTarget = document.querySelector(".announcement-banner");
     var fadeEffect = setInterval(function () {
