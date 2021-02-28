@@ -46,7 +46,7 @@ $(document).ready(function(){
                 $('#txt-search').focus();
             },
             error: function(){
-                $(".announcement-banner").show();
+                $(".error-banner").css("display", "flex");
             }
         });
     }
