@@ -27,6 +27,14 @@ function fadeOutEffect() {
     }, 200);
 }
 document.querySelector(".close").addEventListener('click', fadeOutEffect);
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 $(document).ready(function(){
     if (urlparam == null || urlparam == "" || urlparam == false) {
         $(".error-banner").css("display", "flex");
@@ -35,15 +43,19 @@ $(document).ready(function(){
             url: urlparam,
             method: "GET",
             success: function(item){
-                if (datatype === "raw") {
-                    data = JSON.parse(`${item}`);
-                } else if (datatype === "json") {
-                    data = `${item}`;
+                if (IsJsonString(`${item}`) == false) {
+                    $(".error-banner").css("display", "flex");
                 } else {
-                    data = JSON.parse(`${item}`);
+                    if (datatype === "raw") {
+                        data = JSON.parse(`${item}`);
+                    } else if (datatype === "json") {
+                        data = `${item}`;
+                    } else {
+                        data = JSON.parse(`${item}`);
+                    }
+                    $('#txt-search').removeAttr("readonly");
+                    $('#txt-search').focus();
                 }
-                $('#txt-search').removeAttr("readonly");
-                $('#txt-search').focus();
             },
             error: function(){
                 $(".error-banner").css("display", "flex");
