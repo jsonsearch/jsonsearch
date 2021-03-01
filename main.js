@@ -43,8 +43,12 @@ $(document).ready(function(){
             url: urlparam,
             method: "GET",
             success: function(item){
-                if (IsJsonString(`${item}`) == false) {
+                if (IsJsonString(`${item}`) == false && datatype === "raw") {
                     $(".error-banner").css("display", "flex");
+                } else if (typeof item == "object" && datatype === "raw") {
+                    data = `${item}`;
+                    $('#txt-search').removeAttr("readonly");
+                    $('#txt-search').focus();
                 } else {
                     if (datatype === "raw") {
                         data = JSON.parse(`${item}`);
