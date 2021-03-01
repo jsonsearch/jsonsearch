@@ -59,7 +59,7 @@ $(document).ready(function(){
                     if (datatype === "raw") {
                         data = JSON.parse(`${item}`);
                     } else if (datatype === "json") {
-                        data = `${item}`;
+                        data = JSON.parse(JSON.stringify(`${item}`));
                         console.log("3");
                     } else {
                         data = JSON.parse(`${item}`);
