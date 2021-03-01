@@ -43,23 +43,24 @@ $(document).ready(function(){
             url: urlparam,
             method: "GET",
             success: function(item){
-                if (IsJsonString(`${item}`) == false && datatype === "raw") {
+                let item = `${item}`;
+                if (IsJsonString(item) == false && datatype === "raw") {
                     $(".error-banner").css("display", "flex");
                 } else if (typeof item == "object" && datatype === "raw") {
-                    data = JSON.parse(JSON.stringify(`${item}`));
+                    data = JSON.parse(JSON.stringify(item));
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
                 } else if (typeof item != "object" && datatype === "json") {
-                    data = JSON.parse(`${item}`);
+                    data = JSON.parse(item);
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
                 } else {
                     if (datatype === "raw") {
-                        data = JSON.parse(`${item}`);
+                        data = JSON.parse(item);
                     } else if (datatype === "json") {
-                        data = JSON.parse(JSON.stringify(`${item}`));
+                        data = item;
                     } else {
-                        data = JSON.parse(`${item}`);
+                        data = JSON.parse(item);
                     }
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
