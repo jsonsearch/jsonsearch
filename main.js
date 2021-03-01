@@ -12,7 +12,15 @@ var data = "";
 document.querySelector("form").onsubmit = function(e){e.preventDefault();}
 var urlraw = new URL(window.location.href);
 var urlparam = urlraw.searchParams.get("url");
-var datatype = urlraw.searchParams.get("type");
+var proxy = urlraw.searchParams.get("proxied");
+var url = urlparam;
+if (proxy == "true") {
+    url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
+} else if (proxy == "false") {
+    url = urlparam;
+} else {
+    url = urlparam;
+}
 function fadeOutEffect() {
     var fadeTarget = document.querySelector(".error-banner");
     var fadeEffect = setInterval(function () {
@@ -37,36 +45,29 @@ function IsJsonString(str) {
 }
 $(document).ready(function(){
     if (urlparam == null || urlparam == "" || urlparam == false) {
+        $("#error-text").html("ERROR: Failed to load databse URL, URL cannot be empty");
         $(".error-banner").css("display", "flex");
     } else {
         $.ajax({
-            url: urlparam,
+            url: url,
             method: "GET",
             success: function(item){
-                if (typeof item == "object" && datatype === "raw") {
+                if (typeof item == "object") {
                     data = item;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
-                } else if (typeof item != "object" && datatype === "json") {
+                } else if (IsJsonString(item) == true) {
                     data = JSON.parse(item);
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
-                } else if (IsJsonString(item) == false && datatype === "raw") {
-                    $(".error-banner").css("display", "flex");
                 } else {
-                    if (datatype === "raw") {
-                        data = JSON.parse(item);
-                    } else if (datatype === "json") {
-                        data = item;
-                    } else {
-                        data = JSON.parse(item);
-                    }
-                    $('#txt-search').removeAttr("readonly");
-                    $('#txt-search').focus();
+                    $("#error-text").html("ERROR: Unexpected dataType");
+                    $(".error-banner").css("display", "flex");
                 }
             },
             error: function(){
-                $(".error-banner").css("display", "flex");
+                $("#error-text").html("ERROR: Failed to load databse URL, try to proxy the URL");
+                $(".error-banner").css("display", "flex");error-text
             }
         });
     }
