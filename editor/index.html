@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online JSON Editor - JSONSearch</title>
+<link href="/assets/quill.snow.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
+<meta name="robots" content="none" />
+</head>
+<body>
+<div id="editor">
+  <p>[{</p>
+  <p>&nbsp;&nbsp;&nbsp;"title":"First title goes here",</p>
+  <p>&nbsp;&nbsp;&nbsp;"text":"First text goes here"</p>
+  <p>},{</p>
+  <p>&nbsp;&nbsp;&nbsp;"title":"Second title goes here",</p>
+  <p>&nbsp;&nbsp;&nbsp;"text":"Second text goes here"</p>
+  <p>}]</p>
+</div>
+  <script src="/assets/quill.js"></script>
+  <script>
+    var quill = new Quill('#editor', {
+      theme: 'snow'
+    });
+  </script>
+</body>
+</html>
