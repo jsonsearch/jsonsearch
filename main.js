@@ -49,6 +49,10 @@ $(document).ready(function(){
                     data = `${item}`;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
+                } else if (typeof item != "object" && datatype === "json") {
+                    data = JSON.parse(`${item}`);
+                    $('#txt-search').removeAttr("readonly");
+                    $('#txt-search').focus();
                 } else {
                     if (datatype === "raw") {
                         data = JSON.parse(`${item}`);
