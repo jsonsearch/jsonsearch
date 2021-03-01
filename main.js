@@ -46,10 +46,12 @@ $(document).ready(function(){
                 if (IsJsonString(`${item}`) == false && datatype === "raw") {
                     $(".error-banner").css("display", "flex");
                 } else if (typeof item == "object" && datatype === "raw") {
+                    console.log("1");
                     data = `${item}`;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
                 } else if (typeof item != "object" && datatype === "json") {
+                    console.log("2");
                     data = JSON.parse(`${item}`);
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
@@ -58,6 +60,7 @@ $(document).ready(function(){
                         data = JSON.parse(`${item}`);
                     } else if (datatype === "json") {
                         data = `${item}`;
+                        console.log("3");
                     } else {
                         data = JSON.parse(`${item}`);
                     }
