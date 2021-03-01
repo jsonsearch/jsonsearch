@@ -43,7 +43,6 @@ $(document).ready(function(){
             url: urlparam,
             method: "GET",
             success: function(item){
-                let item = `${item}`;
                 if (IsJsonString(item) == false && datatype === "raw") {
                     $(".error-banner").css("display", "flex");
                 } else if (typeof item == "object" && datatype === "raw") {
