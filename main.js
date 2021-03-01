@@ -46,7 +46,7 @@ $(document).ready(function(){
                 if (IsJsonString(item) == false && datatype === "raw") {
                     $(".error-banner").css("display", "flex");
                 } else if (typeof item == "object" && datatype === "raw") {
-                    data = JSON.parse(JSON.stringify(item));
+                    data = item;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
                 } else if (typeof item != "object" && datatype === "json") {
