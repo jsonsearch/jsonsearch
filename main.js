@@ -43,10 +43,7 @@ $(document).ready(function(){
             url: urlparam,
             method: "GET",
             success: function(item){
-                console.log(typeof item);
-                if (IsJsonString(item) == false && datatype === "raw") {
-                    $(".error-banner").css("display", "flex");
-                } else if (typeof item == "object" && datatype === "raw") {
+                if (typeof item == "object" && datatype === "raw") {
                     data = item;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
@@ -54,6 +51,8 @@ $(document).ready(function(){
                     data = JSON.parse(item);
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
+                } else if (IsJsonString(item) == false && datatype === "raw") {
+                    $(".error-banner").css("display", "flex");
                 } else {
                     if (datatype === "raw") {
                         data = JSON.parse(item);
