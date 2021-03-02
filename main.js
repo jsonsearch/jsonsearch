@@ -1,12 +1,12 @@
 /*
 * main.js
-* https://github.com/optmeout/optmeout/blob/main/main.js
-* https://optmeout.github.io/optmeout/main.js
+* https://github.com/jsonsearch/jsonsearch/blob/main/main.js
+* https://jsonsearch.github.io/jsonsearch/main.js
 * 
 * By Nimityx, https://github.com/Nimityx
 *
-* License : https://github.com/optmeout/optmeout/blob/main/LICENSE (MIT)
-* source  : https://github.com/optmeout/optmeout
+* License : https://github.com/jsonsearch/jsonsearch/blob/main/LICENSE (MIT)
+* source  : https://github.com/jsonsearch/jsonsearch
 */
 var data = "";
 document.querySelector("form").onsubmit = function(e){e.preventDefault();}
