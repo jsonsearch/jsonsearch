@@ -13,11 +13,35 @@ document.querySelector("form").onsubmit = function(e){e.preventDefault();}
 var urlraw = new URL(window.location.href);
 var urlparam = urlraw.searchParams.get("url");
 var proxy = urlraw.searchParams.get("proxied");
-var url = urlparam;
+var settings = urlraw.searchParams.get("settings");
+var custom = urlraw.searchParams.get("custom");
+var url = "";
 if (proxy == "true") {
-    url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
-} else if (proxy == "false") {
-    url = urlparam;
+    if (settings == "default") {
+        url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
+    } else {
+        if (custom.search("%e") != -1) {
+            var obj = custom.split("%e");
+            Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
+            obj = obj.filter(function(x) { return x !== null });
+            if (obj[1]) {
+                url = obj[0] + encodeURIComponent(urlparam) + obj[1];
+            } else {
+                url = obj[0] + encodeURIComponent(urlparam);
+            }
+        } else if (custom.search("%r") != -1) {
+            var obj = custom.split("%r");
+            Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
+            obj = obj.filter(function(x) { return x !== null });
+            if (obj[1]) {
+                url = obj[0] + urlparam + obj[1];
+            } else {
+                url = obj[0] + urlparam;
+            }
+        } else {
+            url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
+        }
+    }
 } else {
     url = urlparam;
 }
