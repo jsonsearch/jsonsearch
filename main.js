@@ -164,7 +164,7 @@ $(document).ready(function(){
                     $("#error-text").html("ERROR: Unexpected dataType");
                     $(".error-banner").css("display", "flex");
                 }
-                if (query == "*") {
+                if (query.slice(0,1) == "*") {
                     $('#txt-search').val(query);
                     var output = '<div class="row">';
                     var count = 1;
@@ -227,7 +227,7 @@ $(document).ready(function(){
             $('#filter-records').html('');
             $('#results').html('');
             return;
-        } else if (searchField === '*') {
+        } else if (searchField.slice(0,1) == "*") {
             var output = '<div class="row">';
             var count = 1;
             $.each(data, function(key, val){
