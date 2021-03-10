@@ -15,6 +15,7 @@ var urlparam = urlraw.searchParams.get("url");
 var proxy = urlraw.searchParams.get("proxied");
 var settings = urlraw.searchParams.get("settings");
 var custom = urlraw.searchParams.get("custom");
+var query = urlraw.searchParams.get("q");
 var url = "";
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -120,7 +121,45 @@ function IsJsonString(str) {
     }
     return true;
 }
+function copyText(a) {
+    var b = document.createElement('textarea');
+    c = document.getSelection();
+    b.textContent = a;
+    document.body.appendChild(b);
+    c.removeAllRanges();
+    b.select();
+    document.execCommand('copy');
+    c.removeAllRanges();
+    document.body.removeChild(b);
+}
+var permalink = document.querySelector("#permalink");
+permalink.href = window.location.href;
+permalink.onclick = function(e){
+    e.preventDefault();
+    copyText(window.location.href);
+}
 $(document).ready(function(){
+    if (query != null && query != "") {
+        var regex = new RegExp(query, "i");
+        var output = '<div class="row">';
+        var count = 1;
+        $.each(data, function(key, val){
+            if (val.title.search(regex) != -1) {
+                output += '<div class="col-md-6 well">';
+                output += '<div class="col-md-7">';
+                output += '<h5>' + val.title + '</h5>';
+                output += '<p>' + val.text + '</p>';
+                output += '</div>';
+                output += '</div>';
+                if(count%2 == 0){
+                    output += '</div><div class="row">';
+                }
+                count++;
+            }
+        });
+        output += '</div>';
+        $('#filter-records').html(output);
+    }
     if (urlparam == null || urlparam == "" || urlparam == false) {
         $("#error-text").html("ERROR: Failed to load databse URL, URL cannot be empty");
         $(".error-banner").css("display", "flex");
@@ -150,6 +189,11 @@ $(document).ready(function(){
     }
     $('#txt-search').keyup(function() {
         var searchField = $(this).val();
+        permalink.href = window.location.href + "&q=" + searchField;
+        permalink.onclick = function(e){
+            e.preventDefault();
+            copyText(permalink.href);
+        }
         if(searchField === '')  {
             $('#filter-records').html('');
             return;
