@@ -199,6 +199,9 @@ $(document).ready(function(){
         permalink.onclick = function(e){
             e.preventDefault();
             copyText(permalink.href);
+            document.querySelector("#error-text").innerHTML = "Permalink copied!";
+            document.querySelector(".error-banner").style.display = "flex";
+            document.querySelector(".error-banner").style.opacity = 1;
         }
         if(searchField === '')  {
             $('#filter-records').html('');
