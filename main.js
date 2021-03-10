@@ -16,11 +16,62 @@ var proxy = urlraw.searchParams.get("proxied");
 var settings = urlraw.searchParams.get("settings");
 var custom = urlraw.searchParams.get("custom");
 var url = "";
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+if (custom != null && custom != "" && (custom.search("%e") != -1 || custom.search("%r") != -1)) {
+    if (re_weburl.test(custom) == true) {
+        setCookie("proxy", custom, 360);
+    }
+}
 if (proxy == "true") {
     if (settings == "default") {
         url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
     } else {
-        if (custom.search("%e") != -1) {
+        if ((custom == null || custom == "") && getCookie("proxy") != null && getCookie("proxy") != "") {
+            if (getCookie("proxy").search("%e") != -1) {
+                var obj = getCookie("proxy").split("%e");
+                Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
+                obj = obj.filter(function(x) { return x !== null });
+                if (obj[1]) {
+                    url = obj[0] + encodeURIComponent(urlparam) + obj[1];
+                } else {
+                    url = obj[0] + encodeURIComponent(urlparam);
+                }
+            } else if (getCookie("proxy").search("%r") != -1) {
+                var obj = getCookie("proxy").split("%r");
+                Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
+                obj = obj.filter(function(x) { return x !== null });
+                if (obj[1]) {
+                    url = obj[0] + urlparam + obj[1];
+                } else {
+                    url = obj[0] + urlparam;
+                }
+            } else {
+                console.log("Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL");
+                url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
+            }
+        } else if ((custom == null || custom == "") && (getCookie("proxy") == null || getCookie("proxy") == "")) {
+            console.log("Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL");
+            url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
+        } else if (custom.search("%e") != -1) {
             var obj = custom.split("%e");
             Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
             obj = obj.filter(function(x) { return x !== null });
