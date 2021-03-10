@@ -49,21 +49,21 @@ if (proxy == "true") {
         if ((custom == null || custom == "") && getCookie("proxy") != null && getCookie("proxy") != "") {
             if (getCookie("proxy").search("%e") != -1) {
                 var obj = getCookie("proxy").split("%e");
-                Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
-                obj = obj.filter(function(x) { return x !== null });
-                if (obj[1]) {
-                    url = obj[0] + encodeURIComponent(urlparam) + obj[1];
-                } else {
-                    url = obj[0] + encodeURIComponent(urlparam);
+                for (x in obj) {
+                    if (obj.length - x == 1) {
+                        url += obj[x];
+                    } else {
+                        url += obj[x] + encodeURIComponent(urlparam);
+                    }
                 }
             } else if (getCookie("proxy").search("%r") != -1) {
                 var obj = getCookie("proxy").split("%r");
-                Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
-                obj = obj.filter(function(x) { return x !== null });
-                if (obj[1]) {
-                    url = obj[0] + urlparam + obj[1];
-                } else {
-                    url = obj[0] + urlparam;
+                for (x in obj) {
+                    if (obj.length - x == 1) {
+                        url += obj[x];
+                    } else {
+                        url += obj[x] + urlparam;
+                    }
                 }
             } else {
                 document.querySelector("#error-text").innerHTML = "Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL";
@@ -76,23 +76,25 @@ if (proxy == "true") {
             url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
         } else if (custom.search("%e") != -1) {
             var obj = custom.split("%e");
-            Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
-            obj = obj.filter(function(x) { return x !== null });
-            if (obj[1]) {
-                url = obj[0] + encodeURIComponent(urlparam) + obj[1];
-            } else {
-                url = obj[0] + encodeURIComponent(urlparam);
+            for (x in obj) {
+                if (obj.length - x == 1) {
+                    url += obj[x];
+                } else {
+                    url += obj[x] + encodeURIComponent(urlparam);
+                }
             }
         } else if (custom.search("%r") != -1) {
             var obj = custom.split("%r");
-            Object.keys(obj).forEach(k => (!obj[k] && obj[k] !== undefined) && delete obj[k]);
-            obj = obj.filter(function(x) { return x !== null });
-            if (obj[1]) {
-                url = obj[0] + urlparam + obj[1];
-            } else {
-                url = obj[0] + urlparam;
+            for (x in obj) {
+                if (obj.length - x == 1) {
+                    url += obj[x];
+                } else {
+                    url += obj[x] + urlparam;
+                }
             }
         } else {
+            document.querySelector("#error-text").innerHTML = "Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL";
+            document.querySelector(".error-banner").style.display = "flex";
             url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
         }
     }
