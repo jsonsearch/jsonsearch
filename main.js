@@ -159,34 +159,34 @@ $(document).ready(function(){
                     $("#error-text").html("ERROR: Unexpected dataType");
                     $(".error-banner").css("display", "flex");
                 }
+                if (query != null && query != "") {
+                    $('#txt-search').val(query);
+                    var regex = new RegExp(query, "i");
+                    var output = '<div class="row">';
+                    var count = 1;
+                    $.each(data, function(key, val){
+                        if (val.title.search(regex) != -1) {
+                            output += '<div class="col-md-6 well">';
+                            output += '<div class="col-md-7">';
+                            output += '<h5>' + val.title + '</h5>';
+                            output += '<p>' + val.text + '</p>';
+                            output += '</div>';
+                            output += '</div>';
+                            if(count%2 == 0){
+                                output += '</div><div class="row">';
+                            }
+                            count++;
+                        }
+                    });
+                    output += '</div>';
+                    $('#filter-records').html(output);
+                }
             },
             error: function(){
                 $("#error-text").html("ERROR: Failed to load databse URL, try to proxy the URL");
                 $(".error-banner").css("display", "flex");error-text
             }
         });
-    }
-    if (query != null && query != "") {
-        $('#txt-search').val(query);
-        var regex = new RegExp(query, "i");
-        var output = '<div class="row">';
-        var count = 1;
-        $.each(data, function(key, val){
-            if (val.title.search(regex) != -1) {
-                output += '<div class="col-md-6 well">';
-                output += '<div class="col-md-7">';
-                output += '<h5>' + val.title + '</h5>';
-                output += '<p>' + val.text + '</p>';
-                output += '</div>';
-                output += '</div>';
-                if(count%2 == 0){
-                    output += '</div><div class="row">';
-                }
-                count++;
-            }
-        });
-        output += '</div>';
-        $('#filter-records').html(output);
     }
     $('#txt-search').keyup(function() {
         var searchField = $(this).val();
