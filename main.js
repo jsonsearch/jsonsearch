@@ -38,7 +38,7 @@ function getCookie(cname) {
 }
 if (custom != null && custom != "" && (custom.search("%e") != -1 || custom.search("%r") != -1)) {
     if (re_weburl.test(custom) == true) {
-        setCookie("proxy", custom, 360);
+        setCookie("proxy", custom, 365);
     }
 }
 if (proxy == "true") {
@@ -65,11 +65,13 @@ if (proxy == "true") {
                     url = obj[0] + urlparam;
                 }
             } else {
-                console.log("Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL");
+                document.querySelector("#error-text").innerHTML = "Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL";
+                document.querySelector(".error-banner").style.display = "flex";
                 url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
             }
         } else if ((custom == null || custom == "") && (getCookie("proxy") == null || getCookie("proxy") == "")) {
-            console.log("Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL");
+            document.querySelector("#error-text").innerHTML = "Custom proxy, but no custom proxy URL submitted. JSONSearch will use default proxy URL";
+            document.querySelector(".error-banner").style.display = "flex";
             url = "https://miniurlid.000webhostapp.com/app/fileproxy?url=" + encodeURIComponent(urlparam);
         } else if (custom.search("%e") != -1) {
             var obj = custom.split("%e");
