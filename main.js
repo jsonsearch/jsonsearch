@@ -156,10 +156,12 @@ $(document).ready(function(){
                     data = item;
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
+                    $('#entries').html(data.length);
                 } else if (IsJsonString(item) == true) {
                     data = JSON.parse(item);
                     $('#txt-search').removeAttr("readonly");
                     $('#txt-search').focus();
+                    $('#entries').html(data.length);
                 } else {
                     $("#error-text").html("ERROR: Unexpected dataType");
                     $(".error-banner").css("display", "flex");
