@@ -184,7 +184,7 @@ $(document).ready(function(){
             },
             error: function(){
                 $("#error-text").html("ERROR: Failed to load databse URL, try to proxy the URL");
-                $(".error-banner").css("display", "flex");error-text
+                $(".error-banner").css("display", "flex");
             }
         });
     }
