@@ -137,6 +137,9 @@ permalink.href = window.location.href;
 permalink.onclick = function(e){
     e.preventDefault();
     copyText(window.location.href);
+    document.querySelector("#error-text").innerHTML = "Permalink copied!";
+    document.querySelector(".error-banner").style.display = "flex";
+    document.querySelector(".error-banner").style.opacity = 1;
 }
 $(document).ready(function(){
     if (urlparam == null || urlparam == "" || urlparam == false) {
