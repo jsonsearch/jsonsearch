@@ -164,7 +164,26 @@ $(document).ready(function(){
                     $("#error-text").html("ERROR: Unexpected dataType");
                     $(".error-banner").css("display", "flex");
                 }
-                if (query != null && query != "") {
+                if (query == "*") {
+                    $('#txt-search').val(query);
+                    var output = '<div class="row">';
+                    var count = 1;
+                    $.each(data, function(key, val){
+                        output += '<div class="col-md-6 well">';
+                        output += '<div class="col-md-7">';
+                        output += '<h5>' + val.title + '</h5>';
+                        output += '<p>' + val.text + '</p>';
+                        output += '</div>';
+                        output += '</div>';
+                        if(count%2 == 0){
+                            output += '</div><div class="row">';
+                        }
+                        count++;
+                    });
+                    output += '</div>';
+                    $('#results').html(count - 1 + " results");
+                    $('#filter-records').html(output);
+                } else if (query != null && query != "") {
                     $('#txt-search').val(query);
                     var regex = new RegExp(query, "i");
                     var output = '<div class="row">';
@@ -204,15 +223,14 @@ $(document).ready(function(){
             document.querySelector(".error-banner").style.display = "flex";
             document.querySelector(".error-banner").style.opacity = 1;
         }
-        if(searchField === '')  {
+        if (searchField === '')  {
             $('#filter-records').html('');
+            $('#results').html('');
             return;
-        }
-        var regex = new RegExp(searchField, "i");
-        var output = '<div class="row">';
-        var count = 1;
-        $.each(data, function(key, val){
-            if (val.title.search(regex) != -1) {
+        } else if (searchField === '*') {
+            var output = '<div class="row">';
+            var count = 1;
+            $.each(data, function(key, val){
                 output += '<div class="col-md-6 well">';
                 output += '<div class="col-md-7">';
                 output += '<h5>' + val.title + '</h5>';
@@ -223,10 +241,31 @@ $(document).ready(function(){
                     output += '</div><div class="row">';
                 }
                 count++;
-            }
-        });
-        output += '</div>';
-        $('#results').html(count - 1 + " results");
-        $('#filter-records').html(output);
+            });
+            output += '</div>';
+            $('#results').html(count - 1 + " results");
+            $('#filter-records').html(output);
+        } else {
+            var regex = new RegExp(searchField, "i");
+            var output = '<div class="row">';
+            var count = 1;
+            $.each(data, function(key, val){
+                if (val.title.search(regex) != -1) {
+                    output += '<div class="col-md-6 well">';
+                    output += '<div class="col-md-7">';
+                    output += '<h5>' + val.title + '</h5>';
+                    output += '<p>' + val.text + '</p>';
+                    output += '</div>';
+                    output += '</div>';
+                    if(count%2 == 0){
+                        output += '</div><div class="row">';
+                    }
+                    count++;
+                }
+            });
+            output += '</div>';
+            $('#results').html(count - 1 + " results");
+            $('#filter-records').html(output);
+        }
     });
 });
