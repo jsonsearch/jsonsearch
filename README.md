@@ -16,8 +16,9 @@ Acceptable JSON format:
   "text":"text value 2"
 }]
 ```
+[Create a databse on text editor](https://jsonsearch.github.io/jsonsearch/editor.html)
 
-The database source must allow to be [XMLHTTPREQUEST](https://en.wikipedia.org/wiki/XMLHttpRequest)ed by this domain
+The database source must allow to be [XMLHTTPREQUEST](https://en.wikipedia.org/wiki/XMLHttpRequest)ed by jsonsearch.github.io domain
 
 You can allow our domain using Access-Control-Allow-Origin
 
