@@ -184,6 +184,7 @@ $(document).ready(function(){
                         }
                     });
                     output += '</div>';
+                    $('#results').html(count - 1 + " results");
                     $('#filter-records').html(output);
                 }
             },
@@ -225,6 +226,7 @@ $(document).ready(function(){
             }
         });
         output += '</div>';
+        $('#results').html(count - 1 + " results");
         $('#filter-records').html(output);
     });
 });
