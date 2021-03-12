@@ -9,6 +9,7 @@
 * source  : https://github.com/jsonsearch/jsonsearch
 */
 var data = "";
+var query = "";
 document.querySelector("form").onsubmit = function(e){e.preventDefault();}
 var urlraw = new URL(window.location.href);
 var urlparam = urlraw.searchParams.get("url");
