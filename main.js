@@ -18,6 +18,18 @@ var settings = urlraw.searchParams.get("settings");
 var custom = urlraw.searchParams.get("custom");
 var query = urlraw.searchParams.get("q");
 var url = "";
+var home = "https://jsonsearch.github.io/jsonsearch/";
+var urlstructure = [urlparam, proxy, settings, custom];
+var param = ["url", "proxied", "settings", "custom"];
+for (x in urlstructure) {
+    if (urlstructure[x]) {
+        if (home.length == 40) {
+            home += "?" + param[x] + "=" + urlstructure[x];
+        } else {
+            home += "&" + param[x] + "=" + urlstructure[x];
+        }
+    }
+}
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -218,7 +230,7 @@ $(document).ready(function(){
     }
     $('#txt-search').keyup(function() {
         var searchField = $(this).val();
-        permalink.href = window.location.href + "&q=" + searchField;
+        permalink.href = home + "&q=" + searchField;
         permalink.onclick = function(e){
             e.preventDefault();
             copyText(permalink.href);
