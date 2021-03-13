@@ -19,7 +19,7 @@ var custom = urlraw.searchParams.get("custom");
 var query = urlraw.searchParams.get("q");
 var url = "";
 var home = "https://jsonsearch.github.io/jsonsearch/";
-var urlstructure = [urlparam, proxy, settings, custom];
+var urlstructure = [encodeURIComponent(urlparam), proxy, settings, custom];
 var param = ["url", "proxied", "settings", "custom"];
 for (x in urlstructure) {
     if (urlstructure[x]) {
@@ -179,32 +179,12 @@ $(document).ready(function(){
                     $("#error-text").html("ERROR: Unexpected dataType");
                     $(".error-banner").css("display", "flex");
                 }
-                if (query.slice(0,1) == "*") {
-                    $('#txt-search').val(query);
-                    var output = '<div class="row">';
-                    var count = 1;
-                    $.each(data, function(key, val){
-                        output += '<div class="col-md-6 well">';
-                        output += '<div class="col-md-7">';
-                        output += '<h5>' + val.title + '</h5>';
-                        output += '<p>' + val.text + '</p>';
-                        output += '</div>';
-                        output += '</div>';
-                        if(count%2 == 0){
-                            output += '</div><div class="row">';
-                        }
-                        count++;
-                    });
-                    output += '</div>';
-                    $('#results').html(count - 1 + " results");
-                    $('#filter-records').html(output);
-                } else if (query != null && query != "") {
-                    $('#txt-search').val(query);
-                    var regex = new RegExp(query, "i");
-                    var output = '<div class="row">';
-                    var count = 1;
-                    $.each(data, function(key, val){
-                        if (val.title.search(regex) != -1) {
+                if (query) {
+                    if (query.slice(0,1) == "*") {
+                        $('#txt-search').val(query);
+                        var output = '<div class="row">';
+                        var count = 1;
+                        $.each(data, function(key, val){
                             output += '<div class="col-md-6 well">';
                             output += '<div class="col-md-7">';
                             output += '<h5>' + val.title + '</h5>';
@@ -215,11 +195,33 @@ $(document).ready(function(){
                                 output += '</div><div class="row">';
                             }
                             count++;
-                        }
-                    });
-                    output += '</div>';
-                    $('#results').html(count - 1 + " results");
-                    $('#filter-records').html(output);
+                        });
+                        output += '</div>';
+                        $('#results').html(count - 1 + " results");
+                        $('#filter-records').html(output);
+                    } else if (query != null && query != "") {
+                        $('#txt-search').val(query);
+                        var regex = new RegExp(query, "i");
+                        var output = '<div class="row">';
+                        var count = 1;
+                        $.each(data, function(key, val){
+                            if (val.title.search(regex) != -1) {
+                                output += '<div class="col-md-6 well">';
+                                output += '<div class="col-md-7">';
+                                output += '<h5>' + val.title + '</h5>';
+                                output += '<p>' + val.text + '</p>';
+                                output += '</div>';
+                                output += '</div>';
+                                if(count%2 == 0){
+                                    output += '</div><div class="row">';
+                                }
+                                count++;
+                            }
+                        });
+                        output += '</div>';
+                        $('#results').html(count - 1 + " results");
+                        $('#filter-records').html(output);
+                    }
                 }
             },
             error: function(){
