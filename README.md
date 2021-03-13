@@ -3,7 +3,7 @@ Web live search engine for JSON database
 
 [Visit JSONSearch](https://jsonsearch.github.io/)
 
-[Example Search: country-by-capital-city.json](https://jsonsearch.github.io/jsonsearch/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjsonsearch%2Fjsonsearch%2Fmain%2Fexamples%2Fcountry-by-capital-city.json&proxied=false)
+[Example Search: country-by-capital-city.json](https://jsonsearch.github.io/jsonsearch/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fjsonsearch%2Fjsonsearch%2Fmain%2Fexamples%2Fcountry-by-capital-city.json&proxied=false) - By [github/samayo](https://github.com/samayo/country-json/blob/master/src/country-by-capital-city.json)
 
 ## Create a database
 Acceptable JSON format:
